@@ -1,5 +1,5 @@
 from core.trade.InstrumentTrade import InstrumentTrade
-from utility.string_utility import is_empty
+from coreutility.string.string_utility import is_empty
 
 
 def serialize_trade(trade: InstrumentTrade) -> dict:

@@ -19,7 +19,7 @@ class TradeRepositoryTestCase(unittest.TestCase):
         self.repository = TradeRepository(options)
 
     def tearDown(self):
-        self.cache.delete('test:position')
+        self.cache.delete('test:trade')
 
     def test_should_store_and_retrieve_trade(self):
         trade = InstrumentTrade(instrument_from='OTC', instrument_to='GBP', quantity=BigFloat('100.00'), status=Status.SUBMITTED, order_id='88888888')

@@ -1,7 +1,7 @@
 from core.number.BigFloat import BigFloat
 from core.trade.InstrumentTrade import InstrumentTrade, Status
-from utility.json_utility import as_data
-from utility.string_utility import is_empty
+from coreutility.collection.dictionary_utility import as_data
+from coreutility.string.string_utility import is_empty
 
 
 def deserialize_trade(trade) -> InstrumentTrade:
