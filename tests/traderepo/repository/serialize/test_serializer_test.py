@@ -31,7 +31,7 @@ class TradeSerializeTestCase(unittest.TestCase):
         self.assertEqual(actual, result)
 
     def test_currency_trade_order_serializes_with_status_and_description(self):
-        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), Status.ERROR, 'Not enough funds')
+        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), status=Status.ERROR, description='Not enough funds')
         actual = serialize_trade(trade)
         result = {
             'instrument_from': 'USDT',
@@ -43,12 +43,13 @@ class TradeSerializeTestCase(unittest.TestCase):
         self.assertEqual(actual, result)
 
     def test_currency_trade_order_serializes_with_status_and_description_and_order_id(self):
-        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), Status.EXECUTED, 'Order Executed', '459396662')
+        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), BigFloat('1.01'), Status.EXECUTED, 'Order Executed', '459396662')
         actual = serialize_trade(trade)
         result = {
             'instrument_from': 'USDT',
             'instrument_to': 'BTC',
             'quantity': '10.0',
+            'price': '1.01',
             'status': 'executed',
             'description': 'Order Executed',
             'order_id': '459396662'
