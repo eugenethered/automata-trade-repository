@@ -22,7 +22,7 @@ class TradeRepositoryTestCase(unittest.TestCase):
         self.cache.delete('test:trade')
 
     def test_should_store_and_retrieve_trade(self):
-        trade = InstrumentTrade(instrument_from='OTC', instrument_to='GBP', quantity=BigFloat('100.00'), price=BigFloat('1.01'), value=BigFloat('101'), status=Status.SUBMITTED, order_id='88888888')
+        trade = InstrumentTrade(instrument_from='OTC', instrument_to='GBP', quantity=BigFloat('100.00'), price=BigFloat('1.01'), value=BigFloat('101'), status=Status.SUBMITTED, order_id='88888888', interval=1)
         self.repository.store_trade(trade)
         stored_trade = self.repository.retrieve_trade()
         self.assertEqual(trade, stored_trade)

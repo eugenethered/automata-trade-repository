@@ -43,7 +43,7 @@ class TradeSerializeTestCase(unittest.TestCase):
         self.assertEqual(actual, result)
 
     def test_currency_trade_order_serializes_with_status_and_value_and_description_and_order_id(self):
-        trade = InstrumentTrade('OTC', 'BTC', BigFloat('10'), BigFloat('1.01'), BigFloat('10.1'), Status.EXECUTED, 'Order Executed', '8888-8888')
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('10'), BigFloat('1.01'), BigFloat('10.1'), Status.EXECUTED, 'Order Executed', '8888-8888', 1)
         actual = serialize_trade(trade)
         result = {
             'instrument_from': 'OTC',
@@ -53,7 +53,8 @@ class TradeSerializeTestCase(unittest.TestCase):
             'value': '10.1',
             'status': 'executed',
             'description': 'Order Executed',
-            'order_id': '8888-8888'
+            'order_id': '8888-8888',
+            'interval': 1
         }
         self.assertEqual(actual, result)
 
