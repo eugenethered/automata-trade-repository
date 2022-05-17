@@ -11,6 +11,8 @@ def serialize_trade(trade: InstrumentTrade) -> dict:
     }
     if trade.price is not None:
         serialized['price'] = str(trade.price)
+    if trade.value is not None:
+        serialized['value'] = str(trade.value)
     if not is_empty(trade.description):
         serialized['description'] = trade.description
     if not is_empty(trade.order_id):

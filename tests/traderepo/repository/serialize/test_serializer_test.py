@@ -20,21 +20,21 @@ class TradeSerializeTestCase(unittest.TestCase):
         self.assertEqual(actual, result)
 
     def test_currency_trade_order_serializes_fraction_quantity(self):
-        trade = InstrumentTrade('BTC', 'USDT', BigFloat('0.000025'))
+        trade = InstrumentTrade('BTC', 'OTC', BigFloat('0.000025'))
         actual = serialize_trade(trade)
         result = {
             'instrument_from': 'BTC',
-            'instrument_to': 'USDT',
+            'instrument_to': 'OTC',
             'quantity': '0.000025',
             'status': 'new'
         }
         self.assertEqual(actual, result)
 
     def test_currency_trade_order_serializes_with_status_and_description(self):
-        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), status=Status.ERROR, description='Not enough funds')
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('10'), status=Status.ERROR, description='Not enough funds')
         actual = serialize_trade(trade)
         result = {
-            'instrument_from': 'USDT',
+            'instrument_from': 'OTC',
             'instrument_to': 'BTC',
             'quantity': '10.0',
             'status': 'error',
@@ -42,17 +42,18 @@ class TradeSerializeTestCase(unittest.TestCase):
         }
         self.assertEqual(actual, result)
 
-    def test_currency_trade_order_serializes_with_status_and_description_and_order_id(self):
-        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), BigFloat('1.01'), Status.EXECUTED, 'Order Executed', '459396662')
+    def test_currency_trade_order_serializes_with_status_and_value_and_description_and_order_id(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('10'), BigFloat('1.01'), BigFloat('10.1'), Status.EXECUTED, 'Order Executed', '8888-8888')
         actual = serialize_trade(trade)
         result = {
-            'instrument_from': 'USDT',
+            'instrument_from': 'OTC',
             'instrument_to': 'BTC',
             'quantity': '10.0',
             'price': '1.01',
+            'value': '10.1',
             'status': 'executed',
             'description': 'Order Executed',
-            'order_id': '459396662'
+            'order_id': '8888-8888'
         }
         self.assertEqual(actual, result)
 

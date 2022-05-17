@@ -9,11 +9,13 @@ def deserialize_trade(trade) -> InstrumentTrade:
     instrument_to = as_data(trade, 'instrument_to')
     quantity = BigFloat(as_data(trade, 'quantity'))
     price = as_data(trade, 'price')
+    value = as_data(trade, 'value')
     status = as_data(trade, 'status')
     description = as_data(trade, 'description')
     order_id = as_data(trade, 'order_id')
     deserialized_trade = InstrumentTrade(instrument_from, instrument_to, quantity)
     set_price_as_available(deserialized_trade, price)
+    set_value_as_available(deserialized_trade, value)
     set_status_as_available(deserialized_trade, status)
     set_description_as_available(deserialized_trade, description)
     set_orderid_as_available(deserialized_trade, order_id)
@@ -25,10 +27,14 @@ def set_price_as_available(deserialized_trade, value):
         deserialized_trade.price = BigFloat(value)
 
 
+def set_value_as_available(deserialized_trade, value):
+    if not is_empty(value):
+        deserialized_trade.value = BigFloat(value)
+
+
 def set_status_as_available(deserialized_trade, value):
     if value is not None:
-        result = [member for name, member in Status.__members__.items() if member.value == value]
-        deserialized_trade.status = result[0]
+        deserialized_trade.status = Status.parse(value)
 
 
 def set_description_as_available(deserialized_trade, value):

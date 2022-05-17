@@ -62,12 +62,13 @@ class TradeDeserializeTestCase(unittest.TestCase):
         self.assertEqual(trade.description, 'order executed')
         self.assertEqual(trade.order_id, '8888-8888')
 
-    def test_currency_trade_order_deserializes_with_price(self):
+    def test_currency_trade_order_deserializes_with_price_and_value(self):
         raw_trade = {
             'instrument_from': 'OTC',
             'instrument_to': 'BTC',
             'quantity': '10',
             'price': '1.01',
+            'value': '10.1',
             'status': 'executed',
             'description': 'order executed',
             'order_id': '8888-8888'
@@ -77,6 +78,7 @@ class TradeDeserializeTestCase(unittest.TestCase):
         self.assertEqual(trade.instrument_to, 'BTC')
         self.assertEqual(trade.quantity, BigFloat('10'))
         self.assertEqual(trade.price, BigFloat('1.01'))
+        self.assertEqual(trade.value, BigFloat('10.1'))
         self.assertEqual(trade.status, Status.EXECUTED)
         self.assertEqual(trade.description, 'order executed')
         self.assertEqual(trade.order_id, '8888-8888')
