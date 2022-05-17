@@ -17,6 +17,6 @@ def serialize_trade(trade: InstrumentTrade) -> dict:
         serialized['description'] = trade.description
     if not is_empty(trade.order_id):
         serialized['order_id'] = trade.order_id
-    if trade.interval is not None:
-        serialized['interval'] = trade.interval
+    if trade.instant is not None:
+        serialized['instant'] = trade.instant
     return serialized

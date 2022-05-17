@@ -54,7 +54,7 @@ class TradeSerializeTestCase(unittest.TestCase):
             'status': 'executed',
             'description': 'Order Executed',
             'order_id': '8888-8888',
-            'interval': 1
+            'instant': 1
         }
         self.assertEqual(actual, result)
 

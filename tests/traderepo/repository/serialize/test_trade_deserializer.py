@@ -72,7 +72,7 @@ class TradeDeserializeTestCase(unittest.TestCase):
             'status': 'executed',
             'description': 'order executed',
             'order_id': '8888-8888',
-            'interval': 1
+            'instant': 1
         }
         trade = deserialize_trade(raw_trade)
         self.assertEqual(trade.instrument_from, 'OTC')
@@ -83,7 +83,7 @@ class TradeDeserializeTestCase(unittest.TestCase):
         self.assertEqual(trade.status, Status.EXECUTED)
         self.assertEqual(trade.description, 'order executed')
         self.assertEqual(trade.order_id, '8888-8888')
-        self.assertEqual(trade.interval, 1)
+        self.assertEqual(trade.instant, 1)
 
 
 if __name__ == '__main__':
