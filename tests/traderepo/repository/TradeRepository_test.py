@@ -89,6 +89,9 @@ class TradeRepositoryTestCase(unittest.TestCase):
         historic_trades = self.repository.retrieve_historic_trades()
         self.assertTrue(len(historic_trades) == 3)
 
+    def test_should_not_have_trade_when_there_is_no_trade_present(self):
+        trade = self.repository.retrieve_trade()
+        self.assertIsNone(trade, 'Trade when not stored should be none')
 
 
 if __name__ == '__main__':
