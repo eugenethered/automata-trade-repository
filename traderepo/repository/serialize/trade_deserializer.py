@@ -5,23 +5,24 @@ from coreutility.string.string_utility import is_empty
 
 
 def deserialize_trade(trade) -> InstrumentTrade:
-    instrument_from = as_data(trade, 'instrument_from')
-    instrument_to = as_data(trade, 'instrument_to')
-    quantity = BigFloat(as_data(trade, 'quantity'))
-    price = as_data(trade, 'price')
-    value = as_data(trade, 'value')
-    status = as_data(trade, 'status')
-    description = as_data(trade, 'description')
-    order_id = as_data(trade, 'order_id')
-    instant = as_data(trade, 'instant')
-    deserialized_trade = InstrumentTrade(instrument_from, instrument_to, quantity)
-    set_price_as_available(deserialized_trade, price)
-    set_value_as_available(deserialized_trade, value)
-    set_status_as_available(deserialized_trade, status)
-    set_description_as_available(deserialized_trade, description)
-    set_orderid_as_available(deserialized_trade, order_id)
-    set_instant_as_available(deserialized_trade, instant)
-    return deserialized_trade
+    if trade is not None:
+        instrument_from = as_data(trade, 'instrument_from')
+        instrument_to = as_data(trade, 'instrument_to')
+        quantity = BigFloat(as_data(trade, 'quantity'))
+        price = as_data(trade, 'price')
+        value = as_data(trade, 'value')
+        status = as_data(trade, 'status')
+        description = as_data(trade, 'description')
+        order_id = as_data(trade, 'order_id')
+        instant = as_data(trade, 'instant')
+        deserialized_trade = InstrumentTrade(instrument_from, instrument_to, quantity)
+        set_price_as_available(deserialized_trade, price)
+        set_value_as_available(deserialized_trade, value)
+        set_status_as_available(deserialized_trade, status)
+        set_description_as_available(deserialized_trade, description)
+        set_orderid_as_available(deserialized_trade, order_id)
+        set_instant_as_available(deserialized_trade, instant)
+        return deserialized_trade
 
 
 def set_price_as_available(deserialized_trade, value):
