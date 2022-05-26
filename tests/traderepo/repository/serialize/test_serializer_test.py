@@ -1,7 +1,7 @@
 import unittest
 
 from core.number.BigFloat import BigFloat
-from core.trade.InstrumentTrade import InstrumentTrade, Status
+from core.trade.InstrumentTrade import InstrumentTrade, Status, TradeMode
 
 from traderepo.repository.serialize.trade_serializer import serialize_trade
 
@@ -15,7 +15,20 @@ class TradeSerializeTestCase(unittest.TestCase):
             'instrument_from': 'USDT',
             'instrument_to': 'BTC',
             'quantity': '10.0',
-            'status': 'new'
+            'status': 'new',
+            'mode': 'trade'
+        }
+        self.assertEqual(actual, result)
+
+    def test_currency_trade_order_serializes_with_prediction_mode(self):
+        trade = InstrumentTrade('USDT', 'BTC', BigFloat('10'), mode=TradeMode.PREDICT)
+        actual = serialize_trade(trade)
+        result = {
+            'instrument_from': 'USDT',
+            'instrument_to': 'BTC',
+            'quantity': '10.0',
+            'status': 'new',
+            'mode': 'predict'
         }
         self.assertEqual(actual, result)
 
@@ -26,7 +39,8 @@ class TradeSerializeTestCase(unittest.TestCase):
             'instrument_from': 'BTC',
             'instrument_to': 'OTC',
             'quantity': '0.000025',
-            'status': 'new'
+            'status': 'new',
+            'mode': 'trade'
         }
         self.assertEqual(actual, result)
 
@@ -38,6 +52,7 @@ class TradeSerializeTestCase(unittest.TestCase):
             'instrument_to': 'BTC',
             'quantity': '10.0',
             'status': 'error',
+            'mode': 'trade',
             'description': 'Not enough funds'
         }
         self.assertEqual(actual, result)
@@ -52,6 +67,24 @@ class TradeSerializeTestCase(unittest.TestCase):
             'price': '1.01',
             'value': '10.1',
             'status': 'executed',
+            'mode': 'trade',
+            'description': 'Order Executed',
+            'order_id': '8888-8888',
+            'instant': 1
+        }
+        self.assertEqual(actual, result)
+
+    def test_trade_with_prediction_mode(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('10'), BigFloat('1.01'), BigFloat('10.1'), Status.EXECUTED, 'Order Executed', '8888-8888', 1, TradeMode.PREDICT)
+        actual = serialize_trade(trade)
+        result = {
+            'instrument_from': 'OTC',
+            'instrument_to': 'BTC',
+            'quantity': '10.0',
+            'price': '1.01',
+            'value': '10.1',
+            'status': 'executed',
+            'mode': 'predict',
             'description': 'Order Executed',
             'order_id': '8888-8888',
             'instant': 1

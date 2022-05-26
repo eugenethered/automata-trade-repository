@@ -7,7 +7,8 @@ def serialize_trade(trade: InstrumentTrade) -> dict:
         'instrument_from': trade.instrument_from,
         'instrument_to': trade.instrument_to,
         'quantity': str(trade.quantity),
-        'status': trade.status.value
+        'status': trade.status.value,
+        'mode': trade.mode.value
     }
     if trade.price is not None:
         serialized['price'] = str(trade.price)
